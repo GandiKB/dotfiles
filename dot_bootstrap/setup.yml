@@ -37,7 +37,7 @@
         shell: /usr/bin/fish
 
     - name: Add Brave Browser Repo
-      ansible.builtin.yum_repository:
+      ansible.builtin.apt_repository:
         name: brave-browser
         description: Brave Browser
         baseurl: https://brave-browser-rpm-release.s3.brave.com/x86_64/
@@ -56,7 +56,7 @@
         state: present
 
     - name: Add VSCodium Repo
-      ansible.builtin.yum_repository:
+      ansible.builtin.apt_repository:
         name: codium
         description: VSCodium
         baseurl: https://download.vscodium.com/debs
@@ -74,7 +74,7 @@
         name: brave-browser
         state: present
     - name: Add Docker repo
-      ansible.builtin.yum_repository:
+      ansible.builtin.apt_repository:
         name: docker
         description: Docker repo
         baseurl: "https://download.docker.com/linux/fedora/{{ ansible_distribution_major_version }}/{{ ansible_architecture }}/stable"
