@@ -12,10 +12,12 @@
       ansible.builtin.set_fact:
         remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
 
-    - name: Install packages
+    - name: Install packages by apt
       ansible.builtin.apt:
         name:
           - 7zip
+          - ca-certificates
+          - curl
           - btop
           - fd-find
           - ffmpeg
@@ -29,6 +31,15 @@
           - remmina
           - ripgrep
           - zoxide
+        state: present
+
+    - name: Install packages by flatpak 
+      community.general.flatpak:
+        name: 
+          - com.vscodium.codium
+          - com.obsproject.Studio
+          - org.videolan.VLC
+          - org.gimp.GIMP
         state: present
 
     - name: Change shell to fish
@@ -72,7 +83,12 @@
 #    - name: Install VSCodium
 #      ansible.builtin.apt:
 #        name: brave-browser
+#        state: presentcom
+#    - name: Add an Apt signing key, uses whichever key is at the URL
+#      ansible.builtin.apt_key:
+#        url: https://ftp-master.debian.org/keys/archive-key-6.0.asc
 #        state: present
+#
 #    - name: Add Docker repo
 #      ansible.builtin.apt_repository:
 #        name: docker
@@ -81,31 +97,31 @@
 #        gpgkey: "https://download.docker.com/linux/fedora/gpg"
 #        gpgcheck: true
 #        enabled: true
-
-    - name: Install Docker
-      ansible.builtin.apt:
-        name:
-          - docker-ce
-          - docker-ce-cli
-          - containerd.io
-          - docker-buildx-plugin
-          - docker-compose-plugin
-        state: present
-
-    - name: Add Docker group
-      ansible.builtin.group:
-        name: docker
-        state: present
-
-    - name: Add user to docker group
-      ansible.builtin.user:
-        name: "{{ remote_regular_user }}"
-        groups: docker
-        append: true
+#
+#    - name: Install Docker
+#      ansible.builtin.apt:
+#        name:
+#          - docker-ce
+#          - docker-ce-cli
+#          - containerd.io
+#          - docker-buildx-plugin
+#          - docker-compose-plugin
+#        state: present
+#
+#    - name: Add Docker group
+#      ansible.builtin.group:
+#        name: docker
+#        state: present
+#
+#    - name: Add user to docker group
+#      ansible.builtin.user:
+#        name: "{{ remote_regular_user }}"
+#        groups: docker
+#        append: true
 
     - name: Check if nvim is installed
       ansible.builtin.command:
-        cmd: nvim version
+        cmd: nvim --version
       register: nvim_installed
       ignore_errors: true
       changed_when: false
@@ -123,32 +139,24 @@
         dest: "/opt/"
       when: nvim_installed is failed or nvim_installed.stdout is not search(nvim_version)
 
-    - name: Install Flatpak packages
-      community.general.flatpak:
-        name:
-          - com.obsproject.Studio
-          - org.videolan.VLC
-          - org.gimp.GIMP
-        state: present
-
-    - name: Ensure fonts directory
-      ansible.builtin.file:
-        path: "~{{ remote_regular_user }}/.fonts"
-        state: directory
-        mode: "0755"
-        owner: "{{ remote_regular_user }}"
-
-    - name: Check if Jetbrains Mono exists
-      ansible.builtin.shell: "ls ~{{ remote_regular_user }}/.fonts/JetBrainsMonoNerd*FontMono*"
-      register: jetbrains_mono_exists
-      ignore_errors: true
-      changed_when: false
-
-    - name: Download Jetbrains mono
-      when: jetbrains_mono_exists is failed
-      ansible.builtin.unarchive:
-        src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
-        dest: "~{{ remote_regular_user }}/.fonts/"
-        remote_src: true
-        mode: "0755"
-        owner: "{{ remote_regular_user }}"
+#    - name: Ensure fonts directory
+#      ansible.builtin.file:
+#        path: "~{{ remote_regular_user }}/.fonts"
+#        state: directory
+#        mode: "0755"
+#        owner: "{{ remote_regular_user }}"
+#
+#    - name: Check if Jetbrains Mono exists
+#      ansible.builtin.shell: "ls ~{{ remote_regular_user }}/.fonts/JetBrainsMonoNerd*FontMono*"
+#      register: jetbrains_mono_exists
+#      ignore_errors: true
+#      changed_when: false
+#
+#    - name: Download Jetbrains mono
+#      when: jetbrains_mono_exists is failed
+#      ansible.builtin.unarchive:
+#        src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
+#        dest: "~{{ remote_regular_user }}/.fonts/"
+#        remote_src: true
+#        mode: "0755"
+#        owner: "{{ remote_regular_user }}"
