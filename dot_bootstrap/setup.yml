@@ -182,13 +182,3 @@
         remote_src: true
         mode: "0755"
 
-    - name: Add Yazi for Debian GPG key
-      ansible.builtin.apt_key:
-        url: 'https://debian.griffo.io/EA0F721D231FDD3A0A17B9AC7808B4DD62C41256.asc'
-        state: present
-    
-    - name: Add Yazi for Debian repository
-      ansible.builtin.apt_repository:
-        repo: 'deb https://debian.griffo.io/apt zara main'
-        state: present
-        update_cache: yes
