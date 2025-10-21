@@ -167,3 +167,28 @@
         remote_src: true
         mode: "0755"
         owner: "{{ remote_regular_user }}"
+
+    - name: Check if Jetbrains Mono exists
+      ansible.builtin.shell: "ls /usr/share/fonts/truetype/JetBrainsMono/JetBrainsMonoNerd*FontMono*"
+      register: jetbrains_mono_exists
+      ignore_errors: true
+      changed_when: false
+
+    - name: Download Jetbrains mono
+      when: jetbrains_mono_exists is failed
+      ansible.builtin.unarchive:
+        src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
+        dest: "/usr/share/fonts/truetype/JetBrainsMono/"
+        remote_src: true
+        mode: "0755"
+
+    - name: Add Yazi for Debian GPG key
+      ansible.builtin.apt_key:
+        url: 'https://debian.griffo.io/EA0F721D231FDD3A0A17B9AC7808B4DD62C41256.asc'
+        state: present
+    
+    - name: Add Yazi for Debian repository
+      ansible.builtin.apt_repository:
+        repo: 'deb https://debian.griffo.io/apt main'
+        state: present
+        update_cache: yes

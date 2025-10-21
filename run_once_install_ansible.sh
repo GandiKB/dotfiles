@@ -26,6 +26,3 @@ ansible-playbook ~/.bootstrap/setup.yml --ask-become-pass
 
 echo "Ansible installation complete."
 
-curl -sS https://starship.rs/install.sh | sh
-
-echo "Starship installation complete."
