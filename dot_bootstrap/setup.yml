@@ -189,6 +189,6 @@
     
     - name: Add Yazi for Debian repository
       ansible.builtin.apt_repository:
-        repo: 'deb https://debian.griffo.io/apt main'
+        repo: 'deb https://debian.griffo.io/apt stable main'
         state: present
         update_cache: yes
