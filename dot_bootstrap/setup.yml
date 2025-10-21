@@ -138,6 +138,13 @@
         src: "/tmp/nvim-linux-x86_64.tar.gz"
         dest: "/opt/"
       when: nvim_installed is failed or nvim_installed.stdout is not search(nvim_version)
+    
+    - name: Add nvim to alternatives
+      community.general.alternatives:
+        name: "editor"
+        link: "/usr/bin/editor"
+        path: "/opt/nvim-linux-x86_64/bin/nvim"
+        priority: 20
 
 #    - name: Ensure fonts directory
 #      ansible.builtin.file:
