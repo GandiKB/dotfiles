@@ -168,19 +168,16 @@
         mode: "0755"
         owner: "{{ remote_regular_user }}"
 
-    - name: Check if Jetbrains Mono exists
-      ansible.builtin.shell: "ls /usr/share/fonts/truetype/JetBrainsMono/JetBrainsMonoNerd*FontMono*"
-      register: jetbrains_mono_exists
-      ignore_errors: true
-      changed_when: false
+    - name: Create Jet Brains Mono folder if it not exists
+      ansible.builtin.file:
+        path: "/usr/share/fonts/truetype/JetBrainsMono"
+        state: directory
+        mode: '0755'
 
-    - name: Download Jetbrains mono
-      when: jetbrains_mono_exists is failed
+    - name: Download and extract Jetbrains mono
       ansible.builtin.unarchive:
         src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
         dest: "/usr/share/fonts/truetype/JetBrainsMono/"
         creates: "/usr/share/fonts/truetype/JetBrainsMono/JetBrainsMonoNerdFont-Bold.ttf"
         remote_src: true
         mode: "0755"
-
-
