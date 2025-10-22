@@ -8,6 +8,6 @@ This automated setup is currently only configured for Ubuntu machines.
 
 ```shell
 export GITHUB_USERNAME=GandiKB
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin init --apply $GITHUB_USERNAME
 ```
 
