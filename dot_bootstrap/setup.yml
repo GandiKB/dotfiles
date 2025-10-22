@@ -19,6 +19,7 @@
           - ca-certificates
           - curl
           - btop
+          - eza
           - fd-find
           - ffmpeg
           - fish
