@@ -190,7 +190,7 @@
     
     - name:  Add debian.griffo.io repo
       apt_repository:
-        repo:  "deb [signed-by=/etc/apt/trusted.gpg.d/debian.griffo.io.gpg] https://debian.griffo.io/apt stable main"
+        repo:  "deb [signed-by=/etc/apt/trusted.gpg.d/debian.griffo.io.gpg] https://debian.griffo.io/apt zara main"
         state: present
         update_cache: yes
     
