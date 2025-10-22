@@ -176,7 +176,7 @@
 
     - name: Download and extract Jetbrains mono
       ansible.builtin.unarchive:
-        src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
+        src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip
         dest: "/usr/share/fonts/truetype/JetBrainsMono/"
         creates: "/usr/share/fonts/truetype/JetBrainsMono/JetBrainsMonoNerdFont-Bold.ttf"
         remote_src: true
