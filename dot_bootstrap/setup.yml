@@ -191,6 +191,6 @@
         url: https://github.com/sxyazi/yazi/releases/download/nightly/yazi-x86_64-unknown-linux-gnu.deb
         dest: /tmp/yazi-x86_64-unknown-linux-gnu.deb
  
-    - name: Install Chrome .deb package
+    - name: Install Yazi Nightly Build .deb package
       apt:
         deb: /tmp/yazi-x86_64-unknown-linux-gnu.deb
