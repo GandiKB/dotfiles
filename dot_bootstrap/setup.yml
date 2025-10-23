@@ -27,6 +27,9 @@
           - git
           - imagemagick
           - jq
+          - keepassxc
+          - nextcloud-desktop
+          - plank
           - poppler-utils
           - preload
           - remmina
