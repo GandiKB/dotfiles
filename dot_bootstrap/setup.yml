@@ -72,59 +72,6 @@
 #      ansible.builtin.apt:
 #        name: brave-browser
 #        state: present
-#
-#    - name: Add VSCodium Repo
-#      ansible.builtin.apt_repository:
-#        name: codium
-#        description: VSCodium
-#        baseurl: https://download.vscodium.com/debs
-#        gpgkey: https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
-#        gpgcheck: true
-#        enabled: true
-#
-#    - name: Import VSCodium gpg key 
-#      ansible.builtin.rpm_key:
-#        key: https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
-#        state: present
-#
-#    - name: Install VSCodium
-#      ansible.builtin.apt:
-#        name: brave-browser
-#        state: presentcom
-#    - name: Add an Apt signing key, uses whichever key is at the URL
-#      ansible.builtin.apt_key:
-#        url: https://ftp-master.debian.org/keys/archive-key-6.0.asc
-#        state: present
-#
-#    - name: Add Docker repo
-#      ansible.builtin.apt_repository:
-#        name: docker
-#        description: Docker repo
-#        baseurl: "https://download.docker.com/linux/fedora/{{ ansible_distribution_major_version }}/{{ ansible_architecture }}/stable"
-#        gpgkey: "https://download.docker.com/linux/fedora/gpg"
-#        gpgcheck: true
-#        enabled: true
-#
-#    - name: Install Docker
-#      ansible.builtin.apt:
-#        name:
-#          - docker-ce
-#          - docker-ce-cli
-#          - containerd.io
-#          - docker-buildx-plugin
-#          - docker-compose-plugin
-#        state: present
-#
-#    - name: Add Docker group
-#      ansible.builtin.group:
-#        name: docker
-#        state: present
-#
-#    - name: Add user to docker group
-#      ansible.builtin.user:
-#        name: "{{ remote_regular_user }}"
-#        groups: docker
-#        append: true
 
     - name: Check if nvim is installed
       ansible.builtin.command:
