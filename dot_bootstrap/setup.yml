@@ -30,6 +30,7 @@
           - imagemagick
           - jq
           - keepassxc
+          - ncdu
           - nextcloud-desktop
           - plank
           - poppler-utils
