@@ -16,9 +16,11 @@
       ansible.builtin.apt:
         name:
           - 7zip
+          - bat
           - ca-certificates
           - curl
           - btop
+          - duf
           - eza
           - fd-find
           - ffmpeg
@@ -34,6 +36,7 @@
           - preload
           - remmina
           - ripgrep
+          - wget
           - zoxide
         state: present
 
